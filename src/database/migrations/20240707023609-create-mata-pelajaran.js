@@ -15,6 +15,9 @@ module.exports = {
       icon_mata_pelajaran: {
         type: Sequelize.STRING
       },
+      id_mode_pembelajaran: {
+        type: Sequelize.INTEGER
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE

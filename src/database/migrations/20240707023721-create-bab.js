@@ -1,4 +1,7 @@
 'use strict';
+
+const { INET, INTEGER } = require('sequelize');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -14,6 +17,9 @@ module.exports = {
       },
       icon_bab: {
         type: Sequelize.STRING
+      },
+      id_mata_pelajaran: {
+        type: Sequelize.INTEGER
       },
       created_at: {
         allowNull: false,

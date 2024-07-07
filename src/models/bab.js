@@ -10,12 +10,20 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      bab.belongsTo(models.mata_pelajaran, {
+        foreignKey: "id_mata_pelajaran",
+        as: "mata_pelajaran"
+      })
+      bab.hasMany(models.sub_bab, {
+        foreignKey: "id_bab",
+        as: "sub_bab"
+      })
     }
   }
   bab.init({
     nama_bab: DataTypes.STRING,
-    icon_bab: DataTypes.STRING
+    icon_bab: DataTypes.STRING,
+    id_mata_pelajaran: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'bab',

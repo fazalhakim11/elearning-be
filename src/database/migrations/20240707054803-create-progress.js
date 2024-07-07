@@ -10,7 +10,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       status_progress: {
-        type: Sequelize.DECIMAL(10,2)
+        type: Sequelize.DECIMAL
+      },
+      id_user: {
+        type: Sequelize.INTEGER
+      },
+      id_material: {
+        type: Sequelize.INTEGER
       },
       created_at: {
         allowNull: false,

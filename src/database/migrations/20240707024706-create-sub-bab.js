@@ -18,6 +18,9 @@ module.exports = {
       label: {
         type: Sequelize.STRING
       },
+      id_bab: {
+        type: Sequelize.INTEGER
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE

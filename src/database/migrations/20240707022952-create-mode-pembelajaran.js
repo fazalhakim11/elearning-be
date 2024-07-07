@@ -12,6 +12,9 @@ module.exports = {
       nama_mode_pembelajaran: {
         type: Sequelize.STRING
       },
+      id_kelas: {
+        type: Sequelize.INTEGER
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE
