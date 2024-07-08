@@ -1,4 +1,4 @@
-const { where,literal, Op, fn, col, Sequelize } = require('sequelize')
+const { where,literal, Op, fn, col, sequelize, query } = require('sequelize')
 const {bab: babModel} = require('../models')
 const {sub_bab: sub_babModel} = require('../models')
 const {progress: progressModel} = require('../models')
@@ -6,20 +6,6 @@ const {material: materialModel} = require('../models')
 
 const index = async (req, res, next) => {
     const id = req.params.id
-    const progress = await sub_babModel.findAll({
-        attributes: [
-          'id_bab',
-          [Sequelize.fn('SUM', Sequelize.literal('CASE WHEN complete THEN 1 ELSE 0 END')), 'completedCount'],
-          [Sequelize.fn('COUNT', Sequelize.col('id')), 'totalCount'],
-          [Sequelize.literal('SUM(CASE WHEN complete THEN 1 ELSE 0 END) * 1.0 / COUNT(id)'), 'progress']
-        ],
-        where: {
-          id_bab: {
-            [Op.in]: Sequelize.literal(`(SELECT id_bab FROM babs WHERE id_mata_pelajaran = ${id})`)
-          }
-        },
-        group: ['id_bab']
-      })
     const bab = await babModel.findAll({
         attributes: [
             'id',
@@ -40,8 +26,7 @@ const index = async (req, res, next) => {
 
     return res.send({
         message: "Success",
-        bab, 
-        progress
+        bab,
     })
 }
 
