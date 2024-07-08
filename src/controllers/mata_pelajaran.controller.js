@@ -1,15 +1,15 @@
 const { where } = require('sequelize')
-const {mode_pembelajaran: mode_pembelajaranModel} = require('../models')
+const {mata_pelajaran: mata_pelajaranModel} = require('../models')
 
 const index = async (req, res, next) => {
     const id = req.params.id
-    const mode_pembelajaran = await mode_pembelajaranModel.findAll({
+    const mata_pelajaran = await mata_pelajaranModel.findAll({
         where:{
-            id_kelas: id
+            id_mode_pembelajaran: id
         }
     })
 
-    if (mode_pembelajaran.length === 0) {
+    if (mata_pelajaran.length === 0) {
         return res.status(404).send({
             message: "Data tidak ditemukan",
         });
@@ -17,9 +17,10 @@ const index = async (req, res, next) => {
     
     return res.send({
         message: "Success",
-        data : mode_pembelajaran.map(mode=>{
+        data : mata_pelajaran.map(mode=>{
             return {
-                nama: mode.nama_mode_pembelajaran   
+                icon: mode.icon_mata_pelajaran,
+                nama: mode.nama_mata_pelajaran,
             }
         })
     })
