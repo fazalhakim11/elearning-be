@@ -41,12 +41,13 @@ const index = async (req, res, next) => {
         sub_bab: sub_bab
         .map(sub=>{
             const totalProgress = sub.material.reduce((total, material) => {
-                return total + material.progresses.reduce((subTotal, progress) => {
-                  return subTotal + progress.status_progress;
+                return total + material.progresses.reduce((total, progress) => {
+                  return total + progress.status_progress;
                 }, 0);
               }, 0);
             const progress = totalProgress/sub.material.length
             return {
+                icon: sub.icon_sub_bab,
                 nama: sub.nama_sub_bab,
                 label: sub.label,
                 progress: progress
