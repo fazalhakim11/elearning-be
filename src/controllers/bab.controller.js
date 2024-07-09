@@ -11,7 +11,6 @@ const index = async (req, res, next) => {
             'id',
             'nama_bab', 
             'icon_bab',
-            [literal('(select COUNT(id) FROM sub_babs WHERE sub_babs.id_bab = bab.id AND sub_babs.label = 1)'), 'total_sub_bab_gratis'],
         ],
         include: [{
             model: sub_babModel,
@@ -24,7 +23,8 @@ const index = async (req, res, next) => {
                 include: [{
                     model: progressModel,
                     as: "progresses",
-                    attributes: ['status_progress']
+                    attributes: ['status_progress'],
+                    where: {id_user: 1}
                 }]
             }]
         }],
