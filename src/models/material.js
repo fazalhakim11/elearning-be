@@ -19,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id_material",
         as: "user"
       })
+      material.hasMany(models.progress, {
+        foreignKey: "id_material",
+        as: "progresses"
+      })
     }
   }
   material.init({
