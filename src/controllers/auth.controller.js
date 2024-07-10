@@ -6,11 +6,11 @@ const {user: userModel} = require("../models")
 
 const login = async ( req, res, next) => {
     const {email, password} = req.body
-    console.log("Data", [email, password] )
+    console.log("Data", [email, password] ) 
 
     const user = await userModel.findOne({where: {email}})
     if (!user) {
-        res.status(401).send({message: "Invalid email"})
+        res.status(401).send({message: "Email is not registered"})
     }      
 
     const isValid = await bcrypt.compare(password, user.password)
