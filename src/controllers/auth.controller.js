@@ -4,6 +4,33 @@ const jwt = require("jsonwebtoken")
 
 const {user: userModel} = require("../models") 
 
+const register = async (req, res, next) => {
+    const { name, email, password } = req.body;
+  
+    const passwordHash = await bcrypt.hash(password, 10);
+    await userModel.create({
+      nama_user: name, 
+      email,
+      password: passwordHash,
+    })
+      .then((user) => {
+        if (!user) {
+          return res.status(500).send({
+            message: "Failed to register user",
+            data: null,
+          });
+        }
+  
+        return res.send({
+          message: "User successfully registered",
+          data: null,
+        });
+      })
+      .catch((err) => {
+        next(err);
+      });
+  };
+
 const login = async ( req, res, next) => {
     const {email, password} = req.body
     console.log("Data", [email, password] ) 
@@ -32,4 +59,4 @@ const login = async ( req, res, next) => {
     })
 }
 
-module.exports = {login}
+module.exports = {register, login}
