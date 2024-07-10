@@ -5,16 +5,19 @@ const {
 
 const index = async (req, res, next) => {
     const id = req.params.id
+    const userId = req.user.id
     const materials = await materialModel.findAll({
+        attributes: ['nama_material', 'thumbnail', 'xp', 'gold'],
+        where: {id_sub_bab: id},
         include:[{
             model: progressModel,
             as: "progresses",
             attributes: ['status_progress'],
-            where: {id_user: 1}
+            where: {id_user: userId},
+            required: false
         }],
-        where: {id_sub_bab: id}
     })
-
+    
     if (materials.length === 0) {
         return res.status(404).send({
             message: "Data tidak ditemukan",
@@ -30,7 +33,7 @@ const index = async (req, res, next) => {
                 nama: material.nama_material,
                 xp: material.xp,
                 gold: material.gold,
-                checked: material.progresses[0].status_progress === 1
+                checked: material.progresses.length === 0 ? false : material.progresses[0].status_progress === 1
             }
         })
     })
