@@ -6,6 +6,7 @@ const {material: materialModel} = require('../models')
 
 const index = async (req, res, next) => {
     const id = req.params.id
+    const userId = req.user.id
     const bab = await babModel.findAll({
         attributes: [
             'id',
@@ -24,7 +25,7 @@ const index = async (req, res, next) => {
                     model: progressModel,
                     as: "progresses",
                     attributes: ['status_progress'],
-                    where: {id_user: 1}
+                    where: {id_user: userId}
                 }]
             }]
         }],
