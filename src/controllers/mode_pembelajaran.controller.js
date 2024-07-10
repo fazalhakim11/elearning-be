@@ -2,7 +2,7 @@ const { where } = require('sequelize')
 const {mode_pembelajaran: mode_pembelajaranModel} = require('../models')
 
 const index = async (req, res, next) => {
-    const id = req.params.id
+    const {id} = req.params
     const mode_pembelajaran = await mode_pembelajaranModel.findAll({
         where:{
             id_kelas: id
