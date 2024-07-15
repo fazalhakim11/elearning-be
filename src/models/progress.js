@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   progress.init({
-    status_progress: DataTypes.DECIMAL,
+    status_progress: DataTypes.BOOLEAN,
     id_user: DataTypes.INTEGER,
     id_material: DataTypes.INTEGER
   }, {

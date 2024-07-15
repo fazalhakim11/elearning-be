@@ -9,6 +9,7 @@ const index = async (req, res, next) => {
         message: "Success",
         data : kelas.map(kel=>{
             return {
+                id: kel.id,
                 nama: kel.nama_kelas
             }
             

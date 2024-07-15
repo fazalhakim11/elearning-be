@@ -1,5 +1,6 @@
 const path = require("path");
 const express = require("express");
+const cors = require("cors")
 
 require("dotenv").config({ path: path.join(__dirname, "../.env") });
 
@@ -12,6 +13,8 @@ const materialRouter = require("./routes/material.route")
 const authRouter = require("./routes/auth.route")
 
 const app = express();
+
+app.use(cors())
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
