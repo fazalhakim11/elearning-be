@@ -11,7 +11,7 @@ const register = async (req, res, next) => {
     await userModel.create({
       nama_user: name, 
       email,
-      password: passwordHash,
+      password: passwordHash,                         
     })
       .then((user) => {
         if (!user) {
@@ -42,7 +42,7 @@ const login = async ( req, res, next) => {
 
     const isValid = await bcrypt.compare(password, user.password)
     if (!isValid){
-        res.status(401).send({message: "Invalid password"})
+        res.status(401).send({message: "Invalid password"})        
     }
 
     const data = {
