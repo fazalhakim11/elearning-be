@@ -54,6 +54,7 @@ const login = async ( req, res, next) => {
     return res.send({
         message: "Login Successfull",
         data: { 
+            nama: user.nama_user,
             token
         }
     })
