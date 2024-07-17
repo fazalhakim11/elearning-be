@@ -58,6 +58,7 @@ const index = async (req, res, next) => {
             const progress = totalProgress/b.sub_bab[0].material.length
             const finalProgress = progress/b.sub_bab.length
             return {
+                id: b.id,
                 icon: b.icon_bab,
                 nama: b.nama_bab,
                 sub_bab_gratis: totalSubBabGratis, 

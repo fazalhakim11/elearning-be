@@ -19,6 +19,7 @@ const index = async (req, res, next) => {
         message: "Success",
         data : mata_pelajaran.map(mode=>{
             return {
+                id: mode.id,
                 icon: mode.icon_mata_pelajaran,
                 nama: mode.nama_mata_pelajaran,
             }

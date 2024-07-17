@@ -29,6 +29,7 @@ const index = async (req, res, next) => {
         data : materials
         .map(material=>{
             return {
+                id: material.id,
                 thumbnail: material.thumbnail,
                 nama: material.nama_material,
                 xp: material.xp,

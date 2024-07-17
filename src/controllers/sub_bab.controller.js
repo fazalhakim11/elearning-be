@@ -48,6 +48,7 @@ const index = async (req, res, next) => {
               }, 0);
             const progress = totalProgress/sub.material.length
             return {
+                id: sub.id,
                 icon: sub.icon_sub_bab,
                 nama: sub.nama_sub_bab,
                 label: sub.label,
