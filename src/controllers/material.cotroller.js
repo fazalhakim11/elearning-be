@@ -7,7 +7,7 @@ const index = async (req, res, next) => {
     const id = req.params.id
     const userId = req.user.id
     const materials = await materialModel.findAll({
-        attributes: ['nama_material', 'thumbnail', 'xp', 'gold'],
+        attributes: ['id', 'nama_material', 'thumbnail', 'xp', 'gold'],
         where: {id_sub_bab: id},
         include:[{
             model: progressModel,
