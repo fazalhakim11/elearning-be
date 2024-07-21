@@ -34,7 +34,7 @@ const index = async (req, res, next) => {
                 nama: material.nama_material,
                 xp: material.xp,
                 gold: material.gold,
-                checked: material.progresses.length === 0 ? false : material.progresses[0].status_progress === 1
+                checked: material.progresses.length === 0 ? false : material.progresses[0].status_progress 
             }
         })
     })
