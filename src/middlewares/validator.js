@@ -6,14 +6,14 @@ const validateRegister = async (req, res, next) => {
     const { name, email, password } = req.body;
   
     if (!name || !email || !password) {
-      return res.send({
+      return res.status(401).send({
         message: "Bad request",
         data: null,
       });
     }
   
     if (!isEmail(email)) {
-      return res.send({
+      return res.status(401).send({
         message: "Invalid email",
         data: null,
       });
@@ -28,7 +28,7 @@ const validateRegister = async (req, res, next) => {
         minSymbols: 1,
       })
     ) {
-      return res.send({
+      return res.status(401).send({
         message: "Password is too weak",
         data: null,
       });
