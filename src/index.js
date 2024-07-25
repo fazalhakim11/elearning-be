@@ -11,6 +11,7 @@ const babRouter = require("./routes/bab.route")
 const sub_babRouter = require("./routes/sub_bab.route")
 const materialRouter = require("./routes/material.route")
 const authRouter = require("./routes/auth.route")
+const progressRouter = require("./routes/progress.route")
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use("/api/bab", babRouter)
 app.use("/api/sub_bab", sub_babRouter)
 app.use("/api/material", materialRouter)
 app.use("/api/auth", authRouter)
+app.use("/api/progress", progressRouter)
 
 app.listen(process.env.SERVER_PORT || 3000, () => {
   console.log("Server Running...");
