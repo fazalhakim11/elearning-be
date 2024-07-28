@@ -2,9 +2,6 @@
   "name": "elearning-be",
   "version": "1.0.0",
   "main": "index.js",
-  "engines": {
-    "node": "14.x"
-  },
   "scripts": {
     "dev": "nodemon src/index.js --watch src/ --watch package.json --watch .env",
     "start": "node src/index.js"
