@@ -29,6 +29,12 @@ app.use("/api/material", materialRouter)
 app.use("/api/auth", authRouter)
 app.use("/api/progress", progressRouter)
 
+app.get("/", (req, res) => {
+  res.send({
+    message: "Server is running..."
+  }) 
+})
+
 app.listen(process.env.SERVER_PORT || 3000, () => {
   console.log("Server Running...");
 });
