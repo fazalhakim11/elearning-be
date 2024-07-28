@@ -1,4 +1,5 @@
 { 
     "version": 2, 
-    "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+    "builds": [{ "src": "src/index.js", "use": "@vecel/node" }], 
+    "routes": [{ "src": "./(.*)", "dest": "/" }] 
 }
