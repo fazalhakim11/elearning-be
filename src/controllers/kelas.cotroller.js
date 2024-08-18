@@ -10,7 +10,9 @@ const index = async (req, res, next) => {
         data : kelas.map(kel=>{
             return {
                 id: kel.id,
-                nama: kel.nama_kelas
+                nama: kel.nama_kelas,
+                image: kel.image,
+                bg_color: kel.bg_color
             }
             
         })

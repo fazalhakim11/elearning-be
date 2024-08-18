@@ -17,7 +17,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   kelas.init({
-    nama_kelas: DataTypes.STRING
+    nama_kelas: DataTypes.STRING,
+    image: DataTypes.STRING,
+    bg_color: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'kelas',
