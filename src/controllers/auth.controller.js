@@ -66,7 +66,7 @@ const login = async (req, res, next) => {
     name: user.nama_user,
   };
   const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: "20s" });
-  const refreshToken = jwt.sign(data, process.env.JWT_SECRET, {
+  const refreshToken = jwt.sign(data, process.env.REFRESH_TOKEN, {
     expiresIn: "1d",
   });
 
@@ -92,4 +92,23 @@ const login = async (req, res, next) => {
   });
 };
 
-module.exports = { register, login };
+const logout = async (req, res)=>{
+  const refreshToken = req.cookies.refreshToken;
+  if (!refreshToken) return res.sendStatus(204);
+  const user = await userModel.findAll({
+    where: {
+      refresh_token: refreshToken,
+    },
+  });
+  if (!user[0]) return res.sendStatus(204);
+  const userId = user[0].id
+  await userModel.update({ refresh_token: null}, {
+    where: {
+      id: userId
+    }
+  })
+  res.clearCookie('refreshToken')
+  return res.status(200).send('Logged out successfully')
+}
+
+module.exports = { register, login, logout };
