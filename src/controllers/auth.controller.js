@@ -1,17 +1,17 @@
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
-const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
-
-const {user: userModel} = require("../models")
-const {progress: progressModel} = require('../models')
+const { user: userModel } = require("../models");
+const { progress: progressModel } = require("../models");
+const { where } = require("sequelize");
 
 const register = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
-    
+
     // Hash the password
     const passwordHash = await bcrypt.hash(password, 10);
-    
+
     // Create a new user
     const user = await userModel.create({
       nama_user: name,
@@ -46,35 +46,50 @@ const register = async (req, res, next) => {
   }
 };
 
+const login = async (req, res, next) => {
+  const { email, password } = req.body;
+  console.log("Data", [email, password]);
 
-const login = async ( req, res, next) => {
-    const {email, password} = req.body
-    console.log("Data", [email, password] ) 
+  const user = await userModel.findOne({ where: { email } });
+  if (!user) {
+    res.status(401).send({ message: "Email is not registered" });
+  }
 
-    const user = await userModel.findOne({where: {email}})
-    if (!user) {
-        res.status(401).send({message: "Email is not registered"})
-    }      
+  const isValid = await bcrypt.compare(password, user.password);
+  if (!isValid) {
+    res.status(401).send({ message: "Invalid password" });
+  }
 
-    const isValid = await bcrypt.compare(password, user.password)
-    if (!isValid){
-        res.status(401).send({message: "Invalid password"})        
-    }
+  const data = {
+    id: user.id,
+    email: user.email,
+    name: user.nama_user,
+  };
+  const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: "20s" });
+  const refreshToken = jwt.sign(data, process.env.JWT_SECRET, {
+    expiresIn: "1d",
+  });
 
-    const data = {
+  await userModel.update(
+    { refresh_token: refreshToken },
+    {
+      where: {
         id: user.id,
-        email: user.email,
+      },
     }
-    const token = jwt.sign(data, process.env.JWT_SECRET)
+  );
 
-    return res.send({
-        message: "Login Successfull",
-        data: {
-            id: user.id, 
-            nama: user.nama_user,
-            token
-        }
-    })
-}
+  res.cookie("refreshToken", refreshToken, {
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000,
+  });
 
-module.exports = {register, login}
+  res.send({
+    message: "Login Successfull",
+    data: {
+      token,
+    },
+  });
+};
+
+module.exports = { register, login };
