@@ -4,7 +4,7 @@ const index = async (req, res, next) => {
     const { userId, materialId } = req.body
     
     await progressModel.update(
-        { status_progress: true }, // New value for the column
+        { status_progress: true },
         {
           where: {
             id_user: userId,

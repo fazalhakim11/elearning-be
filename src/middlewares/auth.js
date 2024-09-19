@@ -21,7 +21,6 @@ const verifyToken = async (req, res, next) => {
         });
       }
   
-      // Save decoded user to request object
       req.user = user;
   
       next();

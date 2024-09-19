@@ -9,10 +9,8 @@ const register = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
 
-    // Hash the password
     const passwordHash = await bcrypt.hash(password, 10);
 
-    // Create a new user
     const user = await userModel.create({
       nama_user: name,
       email,
@@ -26,7 +24,6 @@ const register = async (req, res, next) => {
       });
     }
 
-    // Bulk create progress entries for the new user
     await progressModel.bulkCreate([
       { status_progress: false, id_user: user.id, id_material: 1 },
       { status_progress: false, id_user: user.id, id_material: 2 },
@@ -36,7 +33,6 @@ const register = async (req, res, next) => {
       { status_progress: false, id_user: user.id, id_material: 6 },
     ]);
 
-    // Respond with success message
     res.send({
       message: "User successfully registered",
       data: null,
